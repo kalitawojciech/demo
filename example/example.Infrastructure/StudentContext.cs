@@ -6,10 +6,10 @@ using System.Text;
 
 namespace example.Infrastructure
 {
-    public class StudentContext: DbContext
+    public class StudentContext : DbContext
     {
         public StudentContext(DbContextOptions<StudentContext> options)
-            :base(options)
+            : base(options)
         {
 
         }
@@ -17,5 +17,17 @@ namespace example.Infrastructure
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseSqlServer(@"Server=SQLEXPERSS;Database=SchoolDB;Trusted_Connection=True;");
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Student>();
+            builder.Entity<Subject>();
+            builder.Entity<Teacher>();
+        }
     }
 }
