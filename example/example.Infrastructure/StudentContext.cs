@@ -11,7 +11,7 @@ namespace example.Infrastructure
         public StudentContext(DbContextOptions<StudentContext> options)
             : base(options)
         {
-
+            Database.Migrate();
         }
 
         public DbSet<Student> Students { get; set; }
@@ -21,7 +21,7 @@ namespace example.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(@"Server=SQLEXPERSS;Database=SchoolDB;Trusted_Connection=True;");
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=StudentDB;Trusted_Connection=true;");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
